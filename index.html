@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock ⏰</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Theme toggle (top right) -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+
+    <!-- Format toggle (top left) -->
+    <button class="format-toggle" id="formatToggle" aria-label="Toggle 12/24 hour">24h</button>
+
+    <!-- Main clock card -->
+    <main class="clock-container">
+        <div class="greeting" id="greeting">Good evening</div>
+
+        <div class="time">
+            <span id="hours">00</span>
+            <span class="colon">:</span>
+            <span id="minutes">00</span>
+            <span class="colon">:</span>
+            <span class="seconds" id="seconds">00</span>
+            <span class="ampm" id="ampm">AM</span>
+        </div>
+
+        <div class="date" id="date">Loading date...</div>
+
+        <!-- Day progress bar -->
+        <div class="progress-wrapper">
+            <div class="progress-label">
+                <span>Day progress</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- World clock section -->
+    <section class="world-clock">
+        <h2>🌍 World Clock</h2>
+        <div class="cities" id="cities">
+            <!-- Filled by JavaScript -->
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
