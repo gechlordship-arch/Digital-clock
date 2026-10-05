@@ -16,33 +16,44 @@ body {
     justify-content: center;
     gap: 2rem;
     padding: 5rem 1rem 2rem;
-    /* Dynamic gradient — overridden by JS based on time of day */
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     transition: background 1s ease;
     color: #f1f5f9;
 }
 
-/* Light mode (toggled by button) */
 body.light {
     background: linear-gradient(135deg, #e0e7ff 0%, #f0f9ff 100%) !important;
     color: #0f172a;
 }
 
 /* ============================================
-   MAIN CLOCK CARD
+   DISPLAY WRAPPER (digital + analog)
+   ============================================ */
+.display-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* ============================================
+   MAIN CLOCK CARD (digital)
    ============================================ */
 .clock-container {
+    flex: 1 1 400px;
+    max-width: 550px;
     background: rgba(30, 41, 59, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: 2rem;
-    padding: 3rem 4rem;
+    padding: 2.5rem 3rem;
     text-align: center;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
                 0 0 0 1px rgba(255, 255, 255, 0.1);
     transition: all 0.5s ease;
-    max-width: 700px;
-    width: 100%;
 }
 
 body.light .clock-container {
@@ -52,7 +63,7 @@ body.light .clock-container {
 }
 
 .greeting {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #94a3b8;
     margin-bottom: 1rem;
@@ -65,7 +76,7 @@ body.light .greeting {
 }
 
 .time {
-    font-size: 5.5rem;
+    font-size: 4.5rem;
     font-weight: 700;
     color: #f1f5f9;
     letter-spacing: 0.05em;
@@ -83,15 +94,15 @@ body.light .time {
 }
 
 .seconds {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #3b82f6;
 }
 
 .ampm {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: #3b82f6;
-    margin-left: 0.5rem;
+    margin-left: 0.4rem;
     letter-spacing: 0.1em;
 }
 
@@ -100,7 +111,7 @@ body.light .time {
 }
 
 .date {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #cbd5e1;
     margin-top: 1rem;
     font-weight: 500;
@@ -114,14 +125,14 @@ body.light .date {
    DAY PROGRESS BAR
    ============================================ */
 .progress-wrapper {
-    margin-top: 2rem;
+    margin-top: 1.8rem;
     text-align: left;
 }
 
 .progress-label {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #94a3b8;
     margin-bottom: 0.5rem;
     font-weight: 500;
@@ -150,6 +161,120 @@ body.light .progress-bar {
     background: linear-gradient(90deg, #3b82f6, #8b5cf6);
     border-radius: 10px;
     transition: width 1s linear;
+}
+
+/* ============================================
+   ANALOG CLOCK
+   ============================================ */
+.analog-container {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 50%;
+    padding: 1.2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.5s ease;
+}
+
+body.light .analog-container {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.analog-clock {
+    width: 260px;
+    height: 260px;
+    display: block;
+}
+
+/* Clock face */
+.clock-face {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 2;
+}
+
+body.light .clock-face {
+    stroke: rgba(15, 23, 42, 0.15);
+}
+
+.clock-inner {
+    fill: rgba(15, 23, 42, 0.35);
+    stroke: none;
+}
+
+body.light .clock-inner {
+    fill: rgba(241, 245, 249, 0.9);
+}
+
+/* Hour markers (dots) */
+.marker {
+    fill: #cbd5e1;
+    transition: fill 0.3s;
+}
+
+.marker.major {
+    fill: #3b82f6;
+}
+
+body.light .marker {
+    fill: #64748b;
+}
+
+body.light .marker.major {
+    fill: #3b82f6;
+}
+
+/* Clock hands */
+.hand {
+    .hand {
+    stroke-linecap: round;
+     transition: transform 0.2s ease-out;
+    /* No transform-origin, no transform-box — SVG's rotate() handles it */
+}
+}
+
+.hour-hand {
+    stroke: #f1f5f9;
+    stroke-width: 6;
+}
+
+body.light .hour-hand {
+    stroke: #0f172a;
+}
+
+.minute-hand {
+    stroke: #cbd5e1;
+    stroke-width: 4;
+}
+
+body.light .minute-hand {
+    stroke: #334155;
+}
+
+.second-hand {
+    stroke: #3b82f6;
+    stroke-width: 2;
+    transition: transform 0.05s cubic-bezier(0.4, 2.5, 0.6, 1);
+}
+
+/* Center dot */
+.center-dot {
+    fill: #f1f5f9;
+}
+
+body.light .center-dot {
+    fill: #0f172a;
+}
+
+.center-dot-inner {
+    fill: #3b82f6;
 }
 
 /* ============================================
@@ -229,7 +354,7 @@ body.light .format-toggle:hover {
     padding: 1.5rem 2rem;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4),
                 0 0 0 1px rgba(255, 255, 255, 0.08);
-    max-width: 700px;
+    max-width: 1000px;
     width: 100%;
     transition: all 0.5s ease;
 }
@@ -304,6 +429,19 @@ body.light .city-time {
 /* ============================================
    RESPONSIVE
    ============================================ */
+@media (max-width: 900px) {
+    .display-wrapper {
+        gap: 1.5rem;
+    }
+    .analog-clock {
+        width: 200px;
+        height: 200px;
+    }
+    .analog-container {
+        padding: 0.9rem;
+    }
+}
+
 @media (max-width: 700px) {
     .clock-container {
         padding: 2rem 1.5rem;
@@ -333,6 +471,10 @@ body.light .city-time {
         left: 1rem;
         height: 2.5rem;
         font-size: 0.95rem;
+    }
+    .analog-clock {
+        width: 180px;
+        height: 180px;
     }
     .world-clock {
         padding: 1.2rem 1rem;

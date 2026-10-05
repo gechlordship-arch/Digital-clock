@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Clock ⏰</title>
+    <title>Digital + Analog Clock ⏰</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,30 +13,55 @@
     <!-- Format toggle (top left) -->
     <button class="format-toggle" id="formatToggle" aria-label="Toggle 12/24 hour">24h</button>
 
-    <!-- Main clock card -->
-    <main class="clock-container">
-        <div class="greeting" id="greeting">Good evening</div>
+    <!-- Main display: digital + analog side by side -->
+    <main class="display-wrapper">
 
-        <div class="time">
-            <span id="hours">00</span>
-            <span class="colon">:</span>
-            <span id="minutes">00</span>
-            <span class="colon">:</span>
-            <span class="seconds" id="seconds">00</span>
-            <span class="ampm" id="ampm">AM</span>
+        <!-- Left: Digital clock -->
+        <div class="clock-container">
+            <div class="greeting" id="greeting">Good evening</div>
+
+            <div class="time">
+                <span id="hours">00</span>
+                <span class="colon">:</span>
+                <span id="minutes">00</span>
+                <span class="colon">:</span>
+                <span class="seconds" id="seconds">00</span>
+                <span class="ampm" id="ampm">AM</span>
+            </div>
+
+            <div class="date" id="date">Loading date...</div>
+
+            <!-- Day progress bar -->
+            <div class="progress-wrapper">
+                <div class="progress-label">
+                    <span>Day progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
         </div>
 
-        <div class="date" id="date">Loading date...</div>
+        <!-- Right: Analog clock -->
+        <div class="analog-container">
+            <svg class="analog-clock" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer ring -->
+                <circle cx="100" cy="100" r="96" class="clock-face" />
+                <circle cx="100" cy="100" r="90" class="clock-inner" />
 
-        <!-- Day progress bar -->
-        <div class="progress-wrapper">
-            <div class="progress-label">
-                <span>Day progress</span>
-                <span id="progressPercent">0%</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
+                <!-- Hour markers (12 dots) -->
+                <g id="hourMarkers"></g>
+
+                <!-- Hands -->
+                <line id="hourHand"   x1="100" y1="100" x2="100" y2="55" class="hand hour-hand" />
+                <line id="minuteHand" x1="100" y1="100" x2="100" y2="30" class="hand minute-hand" />
+                <line id="secondHand" x1="100" y1="100" x2="100" y2="22" class="hand second-hand" />
+
+                <!-- Center dot -->
+                <circle cx="100" cy="100" r="5" class="center-dot" />
+                <circle cx="100" cy="100" r="2.5" class="center-dot-inner" />
+            </svg>
         </div>
     </main>
 
